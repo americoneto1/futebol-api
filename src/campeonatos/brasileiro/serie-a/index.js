@@ -39,6 +39,34 @@ class BrasileiroSerieA {
         });
     }
 
+    formatarMes(mes) {
+        const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", 
+                       "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        const idxMes = meses.indexOf(mes);
+        if (idxMes > -1) { return ("0" + (idxMes + 1)).slice(-2); }
+    }
+
+    formatarDataHoraJogo(data, horario) {
+        data = data.replace(/\n/g, "").replace(/\t/g, "");
+        const dataParts = data.split(" ");
+        data = dataParts[5] + "-" + this.formatarMes(dataParts[3]) + "-" + dataParts[1]; 
+        return data + "T" + horario.replace(/\s+/g, "") + ":00";
+    }
+
+    getDataJogo(rowGame, horario) {
+        const data = this.getDataJogoPrev(rowGame.prev());
+        return this.formatarDataHoraJogo(data, horario);
+    }
+
+    getDataJogoPrev(prev) {
+        if (prev.hasClass('headline')) {
+            return prev.text();
+        } else {
+            const data = this.getDataJogoPrev(prev.prev());
+            if (data) { return data; }
+        }
+    }
+
     getJogos(time) {
         return this.getContent(`${baseUrl}/tabela/${this.edicao}`).then(($) => {
             const rodadas = $(".carousel-inner .tabela-jogos").map((idx, item) => {
@@ -48,8 +76,7 @@ class BrasileiroSerieA {
                         return {
                             "mandante": $('.game .game-team-1 span', subItem).text().replace(/\s+/g, ""),
                             "visitante": $('.game .game-team-2 span', subItem).text().replace(/\s+/g, ""),   
-                            "data": "", //TODO
-                            "horario": $('.full-game-time span', subItem).text().replace(/\s+/g, ""),  
+                            "dataHora": this.getDataJogo($(subItem).parent().parent(), $('.full-game-time span', subItem).text()),
                             "local": $('.full-game-location span', subItem).text()
                                 .replace(/Jogo: [\d+]{0,3}/g, "").replace(/\t/g, "").replace(/\n/g, ""),                    
                         };
