@@ -1,0 +1,37 @@
+{
+  "name": "futebol-api",
+  "description": "Consulta de dados dos campeonatos de futebol no Brasil",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout 15000"
+  },
+  "keywords": [
+    "api",
+    "brasileirao",
+    "jogos",
+    "classificacao"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/americoneto1/futebol-api.git"
+  },
+  "author": {
+    "name": "Americo Neto",
+    "email": "americoneto1@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/americoneto1/futebol-api/issues"
+  },
+  "homepage": "https://github.com/americoneto1/futebol-api#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.2",
+    "request": "^2.83.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.0"
+  }
+}
