@@ -5,6 +5,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 process.env.PORT = process.env.PORT || 9000;
 
 require('./campeonatos/brasileiro/serie-a/routes')(app);
+require('./campeonatos/brasileiro/serie-b/routes')(app);
 
 app.listen(process.env.PORT, function () {
     console.log('Express server listening on %s, in %s mode', process.env.PORT, app.get('env'));
