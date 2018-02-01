@@ -1,5 +1,7 @@
 const cheerio = require('cheerio');
 const request = require('request');
+const uniqid = require('uniqid');
+const moment = require('moment');
 
 class Brasileiro {
     constructor(serie, edicao) {
@@ -65,6 +67,51 @@ class Brasileiro {
             const data = this.getDataJogoPrev(prev.prev());
             if (data) { return data; }
         }
+    }
+
+    getCalendario(time) {
+        const dateFormat = "YYYYMMDDTHHmmss";
+        return this.getJogos(time).then((results) => {
+            let ics = `BEGIN:VCALENDAR
+PRODID:-//Jogos do ${time}            
+VERSION:2.0
+CALSCALE:GREGORIAN
+BEGIN:VTIMEZONE
+TZID:America/Sao_Paulo
+X-LIC-LOCATION:America/Sao_Paulo
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0300
+TZOFFSETTO:-0200
+TZNAME:-02
+DTSTART:19701018T000000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=3SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0300
+TZOFFSETTO:-0300
+TZNAME:-03
+DTSTART:19700215T000000
+RRULE:FREQ=YEARLY;BYMONTH=2;BYDAY=3SU
+END:STANDARD
+END:VTIMEZONE
+            `.trim();
+            ics += '\n';
+            results.rodadas.forEach((item) => {
+                const jogo = item.jogos[0];
+                ics += `BEGIN:VEVENT
+SUMMARY:${jogo.mandante} x ${jogo.visitante}
+DTSTART:${moment(jogo.dataHora).format(dateFormat)}Z
+DTEND:${moment(jogo.dataHora).add(2, 'hours').format(dateFormat)}Z
+DTSTAMP:${moment().format(dateFormat)}Z
+UID:${uniqid()}
+LOCATION:${jogo.local}
+END:VEVENT
+                `.trim();
+                ics += '\n';
+            });
+            ics += `END:VCALENDAR`;
+            return ics;
+        });
     }
 
     getJogos(time) {

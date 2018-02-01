@@ -12,6 +12,16 @@ module.exports = (app) => {
         });
     });
 
+    app.get(baseRoute + '/:edicao/calendario', (req, res) => {
+        const obj = new BrasileiroSerieB(req.params.edicao);
+        obj.getCalendario(req.query.time).then((results) => {
+            res.header("Content-Type", "text/calendar");            
+            res.status(200).send(results);
+        }).catch((error) => {
+            res.error(error);
+        });
+    });
+
     app.get(baseRoute + '/:edicao/classificacao', (req, res) => {
         const obj = new BrasileiroSerieB(req.params.edicao);
         obj.getClassificacao().then((results) => {
