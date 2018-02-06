@@ -1,5 +1,7 @@
 # Futebol API
 
+[![Build Status](https://travis-ci.org/americoneto1/futebol-api.svg?branch=master)](https://travis-ci.org/americoneto1/futebol-api)
+
 Esse projeto tem como objetivo consultar informações dos campeonatos de futebol no Brasil, através do consumo de sites oficiais.
 
 ## Campeonatos disponíveis
