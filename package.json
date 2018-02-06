@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/server",
-    "test": "mocha --timeout 15000"
+    "test": "mocha test --recursive --timeout 15000"
   },
   "keywords": [
     "api",
@@ -29,6 +29,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.2",
+    "express-redis-cache": "^1.0.0",
     "moment": "^2.20.1",
     "request": "^2.83.0",
     "uniqid": "^4.1.1"

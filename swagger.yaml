@@ -2,17 +2,14 @@ swagger: "2.0"
 info:
   version: 1.0.0
   title: "Futebol API"
-  description: A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification
-  termsOfService: http://swagger.io/terms/
+  description: Consulta de dados dos campeonatos de futebol no Brasil
   contact:
-    name: Swagger API Team
-    email: foo@example.com
-    url: http://madskristensen.net
+    name: Americo Neto
+    email: americoneto1@gmail.com
   license:
     name: MIT
     url: http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT
-host: petstore.swagger.io
-basePath: /api
+basePath: /v1
 schemes:
   - http
 consumes:
@@ -20,6 +17,20 @@ consumes:
 produces:
   - application/json
 paths:
+  /campeonatos:
+    get:
+      description: |
+        Retorna a lista de campeonatos disponíveis
+      operationId: getCampeonatos
+      responses:
+        200:
+          description: lista de campeonatos
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Campeonato'
+    /brasileiro:
+      /serie-a/{edicao}/jogos:
   /pets:
     get:
       description: |
@@ -110,7 +121,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 definitions:
-  Pet:
+  Campeonator:
     allOf:
       - $ref: '#/definitions/NewPet'
       - required:

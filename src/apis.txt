@@ -1,8 +1,0 @@
-
-
-/v1/campeonatos/brasileiro/serie-a/2017/jogos/{santos}
-/v1/campeonatos/brasileiro/serie-a/2017/classificacao
-/v1/campeonatos/brasileiro/serie-a/2017/times
-/v1/campeonatos/brasileiro/serie-a/2017/artilharia
-
-/v1/campeonatos/estaduais/paulista/a-1/2017/jogos

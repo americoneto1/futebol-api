@@ -1,0 +1,12 @@
+{
+    "name": "Futebol API",
+    "description": "Consulta de dados dos campeonatos de futebol no Brasil",
+    "repository": "https://github.com/americoneto1/futebol-api",
+    "keywords": ["brasileirao", "jogos", "classificacao"],
+    "addons": [
+      {
+        "plan": "heroku-redis:hobby-dev",
+        "as": "REDIS"
+      }
+    ]
+  }
