@@ -1,11 +1,14 @@
 const express = require('express');
 const app = express();
-const cache = require('express-redis-cache')(require('./config/redis'));
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 process.env.PORT = process.env.PORT || 9000;
+process.env.REDIS_ENABLE = process.env.REDIS_ENABLE || true;
 
-app.use(cache.route());
+if (process.env.REDIS_ENABLE) {
+    const cache = require('express-redis-cache')(require('./config/redis'));
+    app.use(cache.route());
+}
 
 require('./campeonatos/brasileiro/serie-a/routes')(app);
 require('./campeonatos/brasileiro/serie-b/routes')(app);
